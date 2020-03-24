@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+<!-- <script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>-->
+
+{% load leaflet_tags %}
+{% load geojson_tags %}
+{% block content %}
+{% leaflet_js %}
+{% leaflet_css %}
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css"/>
+
+<h4 id='user_name_banner' style="display:inline;"><b style="color:#2E56C7;">Welcome,</b> {{ user.username }}</h4>
+
+
+<div id="myMap"></div>
+
+
+
+<style type="text/css">
+    #myMap {
+        width:100%;
+        height:580px;
+    }
+
+
+</style>
+
+<script type="text/javascript" src="{% static 'js_sb/leaflet.ajax.min.js' %}"></script>
+
+<!--TODO REMOVE IF DOESNT WORK-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="{% static 'js_sb/countries.js' %}"></script>
+
+<!--var countriesGeoJsonLayer = new L.GeoJSON(countries);-->
+<!--countriesGeoJsonLayer.addTo(myMap);-->
+<style type="text/css">
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+</style>
+
+<script type="text/javascript">
+
+var myMap = L.map('myMap').setView([48.2083537, 16.3725042], 2)
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL',
+            minZoom:1.5, maxZoom:20
+            }).addTo(myMap);
+
+
+new L.GeoJSON(countries).addTo(myMap);
+
+function map_layers(map,options){
+  console.log( "*** We have entered the map_layers function ***" );
+  console.log( "Options" );
+  console.log(options);
+}
+
+
+function getColor(d) {
+    return d < 0 ? '#fff5f0' :
+           d < 100 ? '#fee0d2' :
+           d < 500  ? '#fcbba1' :
+           d < 1000  ? '#fc9272' :
+           d < 5000  ? '#fb6a4a' :
+           d < 10000   ? '#ef3b2c' :
+           d < 50000   ? '#cb181d' :
+           d < 100000   ? '#a50f15' :
+                          '#67000d';
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.sumDeaths),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
+
+var geojson;
+geojson = new L.GeoJSON(countries, {style: style});
+
+L.geoJson(countries, {style: style}).addTo(myMap);
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+}
+
+function zoomToFeature(e) {
+    myMap.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
+geojson = L.geoJson(countries, {
+    style: style,
+    onEachFeature: onEachFeature
+}).addTo(myMap);
+
+var info = L.control();
+
+info.onAdd = function (myMap) {
+    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this.update();
+    return this._div;
+};
+
+// method that we will use to update the control based on feature properties passed
+info.update = function (props) {
+    this._div.innerHTML = '<h4> Sum of Deaths </h4>' +  (props ?
+        '<b>' + props.name + '</b><br />' + props.sumDeaths + ' ' + 'deaths'
+        : 'from 2014 - 2017');
+};
+
+info.addTo(myMap);
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    info.update(layer.feature.properties);
+}
+
+function resetHighlight(e) {
+    info.update();
+}
+
+var legend = L.control({position: 'bottomright'});
+
+legend.onAdd = function (myMap) {
+
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 100, 500, 1000, 5000, 10000, 50000, 100000],
+        labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+};
+
+legend.addTo(myMap);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+{% load static %}
+{%load plotly_dash%}
+
+
+<script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>
+
+{% load leaflet_tags %}
+{% load geojson_tags %}
+{% block content %}
+{% leaflet_js %}
+{% leaflet_css %}
+
+<meta charset='utf-8' />
+
+
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+
+<div id='map'></div>
+<div id='console'>
+  <h1>Scatter Map</h1>
+<!--    <div class='session'>-->
+<!--  <h2>Sum of Cases</h2>-->
+<!--  <div class='row colors'>-->
+<!--  </div>-->
+<!--  <div class='row labels'>-->
+<!--    <div class='label'>d</div>-->
+<!--    <div class='label'>w</div>-->
+<!--    <div class='label'>NA</div>-->
+<!--&lt;!&ndash;    <div class='label'>10k</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class='label'>50k</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    <div class='label'>100k+</div>&ndash;&gt;-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class='session' id='legend' >
+<div><span style="background-color: #b2abd2"></span>Domestic Bird Cases</div>
+<div><span style="background-color: #e66101"></span>Wild Bird Cases</div>
+<div><span style="background-color: #fdb863"></span>Human Cases</div>
+</div>
+
+
+
+<div class='session' id='sliderbar'>
+  <h2>Year: <label id='active-year'>2004</label></h2>
+  <input id='slider' class='row' type='range' min='2004' max='2020' step='1' value='16' />
+</div>
+
+<div class='session'>
+  <h2>Filter by Virus Subtype</h2>
+<div class='row' id='filters'>
+    <select id="subtype-select">
+      <option id="all" name="toggle" value="ALL" checked="checked">ALL</option>
+      <option id="h5n2lpai" name="toggle" value="H5N2 LPAI">H5N2 LPAI</option>
+      <option id="h5n2hpai" name="toggle" value="H5N2 HPAI">H5N2 HPAI</option>
+      <option id="h5n5hpai" name="toggle" value="H5N5 HPAI">H5N5 HPAI</option>
+      <option id="h5n8hpai" name="toggle" value="H5N8 HPAI">H5N8 HPAI</option>
+      <option id="h5n6hpai" name="toggle" value="H5N6 HPAI">H5N6 HPAI</option>
+      <option id="h5n1hpai" name="toggle" value="H5N1 HPAI">H5N1 HPAI</option>
+      <option id="h9lpai" name="toggle" value="H9 LPAI">H9 LPAI</option>
+      <option id="h5n1lpai" name="toggle" value="H5N1 LPAI">H5N1 LPAI</option>
+      <option id="h5hpai" name="toggle" value="H5 HPAI">H5 HPAI</option>
+      <option id="h9n2lpai" name="toggle" value="H9N2 LPAI">H9N2 LPAI</option>
+      <option id="h5n3lpai" name="toggle" value="H5N3 LPAI">H5N3 LPAI</option>
+      <option id="h7n7lpai" name="toggle" value="H7N7 LPAI">H7N7 LPAI</option>
+      <option id="h5lpai" name="toggle" value="H5 LPAI">H5 LPAI</option>
+      <option id="h7n3hpai" name="toggle" value="H7N3 HPAI">H7N3 HPAI</option>
+      <option id="hpai" name="toggle" value="HPAI">HPAI</option>
+      <option id="h7n6lpai" name="toggle" value="H7N6 LPAI">H7N6 LPAI</option>
+      <option id="h7lpai" name="toggle" value="H7 LPAI">H7 LPAI</option>
+      <option id="h3lpai" name="toggle" value="H3 LPAI">H3 LPAI</option>
+      <option id="h3n1lpai" name="toggle" value="H3N1 LPAI">H3N1 LPAI</option>
+      <option id="h7n9lpai" name="toggle" value="H7N9 LPAI">H7N9 LPAI</option>
+      <option id="h7n9hpai" name="toggle" value="H7N9 HPAI">H7N9 HPAI</option>
+      <option id="h7n4lpai" name="toggle" value="H7N4 LPAI">H7N4 LPAI</option>
+      <option id="h7n2lpai" name="toggle" value="H7N2 LPAI">H7N2 LPAI</option>
+      <option id="h7n3lpai" name="toggle" value="H7N3 LPAI">H7N3 LPAI</option>
+      <option id="h5n5lpai" name="toggle" value="H5N5 LPAI">H5N5 LPAI</option>
+      <option id="h7n1lpai" name="toggle" value="H7N1 LPAI">H7N1 LPAI</option>
+      <option id="h5n6lpai" name="toggle" value="H5N6 LPAI">H5N6 LPAI</option>
+      <option id="h6n2lpai" name="toggle" value="H6N2 LPAI">H6N2 LPAI</option>
+      <option id="h5n3hpai" name="toggle" value="H5N3 HPAI">H5N3 HPAI</option>
+      <option id="h5n9hpai" name="toggle" value="H5N9 HPAI">H5N9 HPAI</option>
+      <option id="h5n8lpai" name="toggle" value="H5N8 LPAI">H5N8 LPAI</option>
+      <option id="h5n9lpai" name="toggle" value="H5N9 LPAI">H5N9 LPAI</option>
+      <option id="h7n1hpai" name="toggle" value="H7N1 HPAI">H7N1 HPAI</option>
+      <option id="h7n7hpai" name="toggle" value="H7N7 HPAI">H7N7 HPAI</option>
+      <option id="h7n8lpai" name="toggle" value="H7N8 LPAI">H7N8 LPAI</option>
+      <option id="lpai" name="toggle" value="LPAI">LPAI</option>
+      <option id="h10n7lpai" name="toggle" value="H10N7 LPAI">H10N7 LPAI</option>
+      <option id="h10n8lpai" name="toggle" value="H10N8 LPAI">H10N8 LPAI</option>
+      <option id="h7n2hpai" name="toggle" value="H7N2 HPAI">H7N2 HPAI</option>
+      <option id="h7hpai" name="toggle" value="H7 HPAI">H7 HPAI</option>
+      <option id="h9hpai" name="toggle" value="H9 HPAI">H9 HPAI</option>
+      <option id="h2n2lpai" name="toggle" value="H2N2 LPAI">H2N2 LPAI</option>
+
+
+    </select>
+</div>
+</div>
+
+</div>
+
+
+
+<style type="text/css">
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
+}
+
+#map {
+  position: absolute;
+  top: 50;
+  bottom: 0;
+  width: 82%;
+  height:580px;
+}
+
+h1 {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #2dc4b2;
+}
+
+#console {
+  position: absolute;
+  width: 240px;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: white;
+}
+
+.session {
+  margin-bottom: 20px;
+}
+
+.row {
+  height: 12px;
+  width: 100%;
+}
+
+.colors {
+  background: linear-gradient(to right, #A64BEE, #01D444);
+  margin-bottom: 5px;
+}
+
+.label {
+  width: 15%;
+  display: inline-block;
+  text-align: center;
+}
+
+div#legend.session {
+background-color: #fff;
+border-radius: 3px;
+top: 225px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+padding: 5px;
+position: absolute;
+z-index: 1;
+}
+
+div#legend.session h4 {
+margin: 0 0 10px;
+}
+
+div#legend.session span {
+border-radius: 50%;
+display: inline-block;
+height: 10px;
+margin-right: 5px;
+width: 10px;
+}
+</style>
+
+<script type="text/javascript" src="{% static 'js_sb/leaflet.ajax.min.js' %}"></script>
+<!--TODO REMOVE IF DOESNT WORK-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+mapboxgl.accessToken = 'pk.eyJ1IjoiYW5qYWxpcmF2ZWVuZHJhbiIsImEiOiJjazgwZ3RjdG8wNTBxM2dtc2toZnU4bW8zIn0.cNgbDLku-qod0zbzncY4Rw';
+
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/light-v10',
+  //style: 'mapbox://styles/mapbox/streets-v11',
+  center: [-74.0059, 40.7128],
+  zoom: 2.5
+});
+
+
+map.on('load', function() {
+
+  var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  });
+
+  function showPopup(e) {
+    // Updates the cursor to a hand (interactivity)
+    map.getCanvas().style.cursor = 'pointer';
+
+    // Show the popup at the coordinates with some data
+    popup.setLngLat(e.lngLat)
+          .setHTML("SEROTYPES = " + e.features[0].properties.serotypes
+           +"<br>"+ "COUNTRY = " + e.features[0].properties.country
+           +"<br>"+ "LOCALITY = " + e.features[0].properties.localityName
+           +"<br>"+ "SPECIES = " + e.features[0].properties.speciesDescription
+           +"<br>"+ "DATE = " + e.features[0].properties.reportingDate.substring(0,11)
+           +"<br>"+ "SUM OF CASES = " + e.features[0].properties.sumCases
+           +"<br>"+ "SUM OF DEATHS = " + e.features[0].properties.sumDeaths
+           +"<br>"+ "HUMANS AFFECTED = " + e.features[0].properties.humansAffected
+           +"<br>"+ "HUMAN DEATHS = " + e.features[0].properties.humansDeaths)
+      .addTo(map);
+  }
+
+  function hidePopup() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  }
+
+  function checkEmpty(info) {
+    return (info) ? info : "No data";
+  }
+
+  map.on('mouseenter', 'cases', showPopup);
+  map.on('mouseleave', 'cases', hidePopup);
+
+  map.addLayer({
+    id: 'cases',
+    type: 'circle',
+
+    source: {
+      type: 'geojson',
+      data: '{% url 'empresdomesticwildhuman' %}'
+    },
+
+    paint: {
+
+      'circle-radius': [
+        'interpolate',
+        ['linear'],
+        ['number', ['get', 'sumCases']],
+        0, 2,
+        4, 6,
+        12, 24
+      ],
+
+        'circle-color': {
+          property: 'birdType',
+          type: 'categorical',
+          stops: [
+              ['domestic', '#b2abd2'],
+              ['wild', '#e66101'],
+              ['human', '#fdb863']]
+      },
+
+      'circle-opacity': 0.8
+    },
+
+    filter: ['==', ['number', ['get', 'reportingYear']], 2004]
+
+  });
+
+function generateSerotypeFilterCond( serotype ){
+  if (serotype === 'ALL') {
+    filterSerotype = ['!=', ['string', ['get', 'serotypes']], 'placeholder'];
+  } else if (serotype === 'H5N2 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N2 LPAI', 'ALL'], true, false];
+    console.log ( filterSerotype );
+  } else if (serotype === 'H5N2 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N2 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N5 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N5 HPAI', 'ALL'], true, false];
+  } else if (serotype === 'H5N8 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N8 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N6 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N6 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N1 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N1 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H9 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H9 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N1 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N1 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H9N2 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H9N2 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N3 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N3 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N7 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N7 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N3 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N3 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N6 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N6 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H3 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H3 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H3N1 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H3N1 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N9 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N9 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N9 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N9 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N4 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N4 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N2 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N2 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N3 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N3 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N5 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N5 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N1 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N1 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N6 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N6 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H6N2 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H6N2 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N3 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N3 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N9 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N9 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N8 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N8 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H5N9 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H5N9 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N1 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N1 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N7 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N7 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N8 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N8 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H10N7 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H10N7 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H10N8 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H10N8 LPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7N2 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7N2 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H7 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H7 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H9 HPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H9 HPAI', 'ALL'], true, false];
+  }else if (serotype === 'H2N2 LPAI') {
+    filterSerotype = ['match', ['get', 'serotypes'], ['H2N2 LPAI', 'ALL'], true, false];
+  }else {
+    console.log( serotype );
+    console.log('error');
+  }
+  return filterSerotype;
+}
+
+document.getElementById('slider').addEventListener('input', function(e) {
+  var year = parseInt(e.target.value);
+  var serotype  = document.getElementById('filters').value;
+  var filterSerotype = generateSerotypeFilterCond( serotype );
+  //add filterVal to below statement
+
+  //map.setFilter('cases', ['==', ['number', ['get', 'reportingYear']], year]);
+
+  var filterYear = ['==', ['number', ['get', 'reportingYear']], year]
+  map.setFilter('cases', ['all', filterYear, filterSerotype] );
+
+  document.getElementById('active-year').innerText = year;
+
+
+});
+
+document.getElementById('filters').addEventListener('change', function(e) {
+  var serotype = e.target.value;
+
+  var filterSerotype = generateSerotypeFilterCond( serotype );
+
+
+  var yearVal = parseInt( document.getElementById('active-year').innerText );
+  filterYear = ['==', ['number', ['get', 'reportingYear']], yearVal]
+
+//serotype
+  console.log( yearVal );
+
+  // add year to below filter
+  map.setFilter('cases', ['all', filterYear, filterSerotype] );
+
+});
+
+});
+</script>
+{% endblock %}
+
+<!--        'circle-color': [-->
+<!--        'interpolate',-->
+<!--        ['linear'],-->
+<!--        ['number', ['get', 'sumCases']],-->
+<!--        0, '#2DC4B2',-->
+<!--        1, '#3BB3C3',-->
+<!--        2, '#669EC4',-->
+<!--        3, '#8B88B6',-->
+<!--        4, '#A2719B',-->
+<!--        5, '#AA5E79'-->
+<!--      ],-->
+
+
+
+<!--  if (serotype === 'ALL') {-->
+<!--    filterSerotype = ['!=', ['string', ['get', 'serotypes']], 'placeholder'];-->
+<!--  } else if (serotype === 'H5N2 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N2 LPAI', 'ALL'], true, false];-->
+<!--    console.log ( filterSerotype );-->
+<!--  } else if (serotype === 'H5N2 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N2 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N5 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N5 HPAI', 'ALL'], true, false];-->
+<!--  } else if (serotype === 'H5N8 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N8 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N6 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N6 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N1 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N1 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H9 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H9 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N1 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N1 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H9N2 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H9N2 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N3 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N3 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N7 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N7 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N3 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N3 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N6 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N6 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H3 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H3 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H3N1 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H3N1 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N9 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N9 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N9 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N9 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N4 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N4 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N2 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N2 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N3 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N3 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N5 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N5 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N1 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N1 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N6 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N6 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H6N2 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H6N2 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N3 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N3 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N9 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N9 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N8 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N8 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H5N9 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H5N9 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N1 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N1 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N7 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N7 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N8 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N8 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H10N7 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H10N7 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H10N8 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H10N8 LPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7N2 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7N2 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H7 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H7 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H9 HPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H9 HPAI', 'ALL'], true, false];-->
+<!--  }else if (serotype === 'H2N2 LPAI') {-->
+<!--    filterSerotype = ['match', ['get', 'serotypes'], ['H2N2 LPAI', 'ALL'], true, false];-->
+<!--  }else {-->
+<!--    console.log('error');-->
+<!--  }-->
