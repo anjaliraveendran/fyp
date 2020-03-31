@@ -1,8 +1,5 @@
 {
   "dependencies": {
     "default-passive-events": "^1.0.10"
-  },
-  "scripts": {
-    "start": "node server.js"
-}
+  }
 }
