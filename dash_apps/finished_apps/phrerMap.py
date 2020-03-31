@@ -18,6 +18,8 @@ df_phrer = pd.read_excel('/Users/anjaliraveendran/Desktop/FYP/csv_analysis/phrer
 #                      projection="natural earth")
 # fig.show()
 
+
+
 app.layout = html.Div([
     dcc.Graph(
         id='phrer',

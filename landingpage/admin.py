@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.gis.geos import Point
 from datetime import datetime
-from leaflet.admin import LeafletGeoAdmin
+# from leaflet.admin import LeafletGeoAdmin
 import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
