@@ -17,8 +17,9 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 
-from .views import welcome, choropleth, dashChartView, phrerView, scatterView
-from dash_apps.finished_apps import dashChart, phrerMap, scatterMap
+from .views import welcome, choropleth, dashChartView, phrerView
+from dash_apps.finished_apps import dashChart, phrerMap
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),       # Including admin url from django source code
@@ -28,7 +29,6 @@ urlpatterns = [
     url(r'^choropleth/$', choropleth, name='choropleth'),
     url(r'^charts/$', dashChartView, name='dashChart'),
     url(r'^phrer/$', phrerView, name='phrerMap'),
-    url(r'^scatter/$', scatterView, name='scatterMap'),
     path('django_plotly_dash/', include('django_plotly_dash.urls')), #django import
 ]
 

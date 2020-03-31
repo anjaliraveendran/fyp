@@ -1,28 +1,28 @@
-{% extends "base.html" %}
-{% load static %}
-{%load plotly_dash%}
+<!--{% extends "base.html" %}-->
+<!--{% load static %}-->
+<!--{%load plotly_dash%}-->
 
 
- <script type="text/javascript" lXanguage="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>
+<!-- <script type="text/javascript" lXanguage="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>-->
 
-{% load leaflet_tags %}
-{% load geojson_tags %}
-{% block content %}
-{% leaflet_js %}
-{% leaflet_css %}
-
-
+<!--{% load leaflet_tags %}-->
+<!--{% load geojson_tags %}-->
+<!--{% block content %}-->
+<!--{% leaflet_js %}-->
+<!--{% leaflet_css %}-->
 
 
-<script type="text/javascript" src="{% static 'js_sb/leaflet.ajax.min.js' %}"></script>
-
-<!--TODO REMOVE IF DOESNT WORK-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 
-<div class="{% plotly_class name='scatterMap' %} card" style="height:100%; width:100%" >
-{%plotly_app name="scatterMap" ratio=0.65 %}
-</div>
+<!--<script type="text/javascript" src="{% static 'js_sb/leaflet.ajax.min.js' %}"></script>-->
+
+<!--&lt;!&ndash;TODO REMOVE IF DOESNT WORK&ndash;&gt;-->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>-->
 
 
-{% endblock %}
+<!--<div class="{% plotly_class name='scatterMap' %} card" style="height:100%; width:100%" >-->
+<!--{%plotly_app name="scatterMap" ratio=0.65 %}-->
+<!--</div>-->
+
+
+<!--{% endblock %}-->
