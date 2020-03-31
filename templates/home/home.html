@@ -5,11 +5,11 @@
 
 <script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>
 
-<!--{% load leaflet_tags %}-->
+
 {% load geojson_tags %}
 {% block content %}
-<!--{% leaflet_js %}-->
-<!--{% leaflet_css %}-->
+
+
 
 <meta charset='utf-8' />
 
@@ -20,20 +20,7 @@
 
 <div id='map'></div>
 <div id='console'>
-  <h1>Scatter Map</h1>
-<!--    <div class='session'>-->
-<!--  <h2>Sum of Cases</h2>-->
-<!--  <div class='row colors'>-->
-<!--  </div>-->
-<!--  <div class='row labels'>-->
-<!--    <div class='label'>d</div>-->
-<!--    <div class='label'>w</div>-->
-<!--    <div class='label'>NA</div>-->
-<!--&lt;!&ndash;    <div class='label'>10k</div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class='label'>50k</div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class='label'>100k+</div>&ndash;&gt;-->
-<!--  </div>-->
-<!--</div>-->
+    <h1>Scatter Map</h1>
 
 <div class='session' id='legend' >
 <div><span style="background-color: #b2abd2"></span>Domestic Bird Cases</div>
@@ -52,13 +39,13 @@
   <h2>Filter by Virus Subtype</h2>
 <div class='row' id='filters'>
     <select id="subtype-select">
-      <option id="all" name="toggle" value="ALL" checked="checked">ALL</option>
+      <option id="all" name="toggle" value="ALL">ALL</option>
       <option id="h5n2lpai" name="toggle" value="H5N2 LPAI">H5N2 LPAI</option>
       <option id="h5n2hpai" name="toggle" value="H5N2 HPAI">H5N2 HPAI</option>
       <option id="h5n5hpai" name="toggle" value="H5N5 HPAI">H5N5 HPAI</option>
       <option id="h5n8hpai" name="toggle" value="H5N8 HPAI">H5N8 HPAI</option>
       <option id="h5n6hpai" name="toggle" value="H5N6 HPAI">H5N6 HPAI</option>
-      <option id="h5n1hpai" name="toggle" value="H5N1 HPAI">H5N1 HPAI</option>
+      <option id="h5n1hpai" name="toggle" value="H5N1 HPAI" checked="checked">H5N1 HPAI</option>
       <option id="h9lpai" name="toggle" value="H9 LPAI">H9 LPAI</option>
       <option id="h5n1lpai" name="toggle" value="H5N1 LPAI">H5N1 LPAI</option>
       <option id="h5hpai" name="toggle" value="H5 HPAI">H5 HPAI</option>
@@ -384,7 +371,6 @@ document.getElementById('slider').addEventListener('input', function(e) {
 
   document.getElementById('active-year').innerText = year;
 
-
 });
 
 document.getElementById('filters').addEventListener('change', function(e) {
@@ -396,7 +382,7 @@ document.getElementById('filters').addEventListener('change', function(e) {
   var yearVal = parseInt( document.getElementById('active-year').innerText );
   filterYear = ['==', ['number', ['get', 'reportingYear']], yearVal]
 
-//serotype
+  //serotype
   console.log( yearVal );
 
   // add year to below filter
