@@ -8,7 +8,7 @@ alias deactivate 'test $?_OLD_VIRTUAL_PATH != 0 && setenv PATH "$_OLD_VIRTUAL_PA
 # Unset irrelevant variables.
 deactivate nondestructive
 
-setenv VIRTUAL_ENV "/Users/anjaliraveendran/final-year-project/dashboardClean_v2/django-env"
+setenv VIRTUAL_ENV "/Users/anjaliraveendran/final-year-project/dashboardClean_v3_try2/django-env"
 
 set _OLD_VIRTUAL_PATH="$PATH"
 setenv PATH "$VIRTUAL_ENV/bin:$PATH"
