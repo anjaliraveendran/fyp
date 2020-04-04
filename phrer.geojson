@@ -1,7 +1,6 @@
 {
 "type": "FeatureCollection",
 "name": "phrerHtml",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "country": "Cambodia", "year": "2005", "phrer": "-1416.5517658756464", "phrer2": "0", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
 { "type": "Feature", "properties": { "country": "Cambodia", "year": "2006", "phrer": "-895.06276312544037", "phrer2": "0", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
