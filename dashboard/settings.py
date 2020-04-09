@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'landingpage',
     'home',
-    # 'crispy_forms',
+    'crispy_forms',
     'leaflet',
     'djgeojson',
     'django_plotly_dash.apps.DjangoPlotlyDashConfig',
@@ -184,18 +184,18 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static2']))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# LEAFLET_CONFIG = {
-#     'DEFAULT_CENTER': (-.023, 36.87),
-#     'DEFAULT_ZOOM':2,
-#     'MAX_ZOOM': 20,
-#     'MIN_ZOOM':3,
-#     'SCALE': 'both',
-#     'ATTRIBUTION_PREFIX':'AVIAN INFLUENZA DASHBOARD',
-#     'TILES': [('OpenStreet Map', 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {'attribution': 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 'maxZoom':20}),
-#               ('Terrain Map', 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': 'Copyright:© 2013 ESRI, i-cubed, GeoEye','maxZoom': 16}),
-#               ('Data Map', 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {'attribution':'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
-#               # ('Data Map', 'http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {'attribution': 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
-# }
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (-.023, 36.87),
+    'DEFAULT_ZOOM':2,
+    'MAX_ZOOM': 20,
+    'MIN_ZOOM':3,
+    'SCALE': 'both',
+    'ATTRIBUTION_PREFIX':'AVIAN INFLUENZA DASHBOARD',
+    'TILES': [('OpenStreet Map', 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {'attribution': 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 'maxZoom':20}),
+              ('Terrain Map', 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': 'Copyright:© 2013 ESRI, i-cubed, GeoEye','maxZoom': 16}),
+              ('Data Map', 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {'attribution':'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
+              # ('Data Map', 'http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {'attribution': 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
+}
 
 
 # STATICFILES_DIRS = [

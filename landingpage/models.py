@@ -167,3 +167,21 @@ class EmpresDomesticWildHuman(models.Model):
     class Meta:
         verbose_name_plural = "Empres Domestic Wild Human"
 
+
+# class PublicHealthResponseEffectiveness(models.Model):
+#     country = models.CharField(max_length=250, default='SOME STRING')
+#     year = models.CharField(max_length=250, default='SOME STRING')
+#     phrer = models.FloatField(default=0)
+#     phrer2 = models.FloatField(default=0)
+#     latitude = models.FloatField(default=0)
+#     longitude = models.FloatField(default=0)
+#     geom = models.PointField(blank=True, null=True, srid=4326)
+#     iso_alpha = models.CharField(max_length=250, default='SOME STRING')
+#     iso_num = models.FloatField(default=0)
+#
+#     def __str__(self):
+#         return self.phrer
+#
+#     class Meta:
+#         verbose_name_plural = "Public Health Response Effectiveness"
+#

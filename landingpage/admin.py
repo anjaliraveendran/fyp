@@ -9,6 +9,7 @@ from leaflet.admin import LeafletGeoAdmin
 
 from .models import Avian14to17Data, EmpresTwoYearOutbreakData, HumanCasesDataset, GisaidEpifluEuropeIsolateData, \
     OpenFluFlockOutbreakData, EmpresDomesticWildHuman
+    # , PublicHealthResponseEffectiveness
 
 
 #
@@ -221,4 +222,32 @@ admin.site.register(EmpresDomesticWildHuman, EmpresDomesticWildHumanAdmin)
 #         print ('!!! ERROR !!! - ROW Index {}, ROW {}'.format(index, row))
 #         print (e)
 #         print ('-------')
+#
+
+# class PublicHealthResponseEffectivenessAdmin(LeafletGeoAdmin):
+#     pass
+#
+# admin.site.register(PublicHealthResponseEffectiveness, PublicHealthResponseEffectivenessAdmin)
+# #
+# df_excelReader = pd.read_excel('/Users/anjaliraveendran/Desktop/FYP/csv_analysis/phrerHtml.xlsx')
+#
+# for index, row in df_excelReader.iterrows():
+#     try:
+#         latitude = row['latitude']
+#         longitude = row['longitude']
+#         geom = Point(longitude, latitude)
+#         # print ( 'Lg {}, Lt {} --- Geom {}'.format(longitude, latitude, geom ))
+#         PublicHealthResponseEffectiveness(country=row['country'],
+#                                           year=row['year'],
+#                                           phrer=row['phrer'],
+#                                           phrer2=row['phrer2'],
+#                                           latitude=row['latitude'],
+#                                           longitude=row['longitude'],
+#                                           iso_alpha=row['iso_alpha'],
+#                                           iso_num=row['iso_num'],
+#                                           geom=geom).save()
+#     except Exception as e:
+#         print('!!! ERROR !!! - ROW Index {}, ROW {}'.format(index, row))
+#         print(e)
+#         print('-------')
 #

@@ -33,10 +33,9 @@
 
 <!--TODO REMOVE IF DOESNT WORK-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="{% static 'js_sb/countries.js' %}"></script>
+<script src="{% static 'js_sb/choropleth.js' %}"></script>
 
-<!--var countriesGeoJsonLayer = new L.GeoJSON(countries);-->
-<!--countriesGeoJsonLayer.addTo(myMap);-->
+
 <style type="text/css">
 .info {
     padding: 6px 8px;
@@ -83,21 +82,21 @@ function map_layers(map,options){
 }
 
 
-function getColor(d) {
-    return d < 0 ? '#fff5f0' :
-           d < 100 ? '#fee0d2' :
-           d < 500  ? '#fcbba1' :
-           d < 1000  ? '#fc9272' :
-           d < 5000  ? '#fb6a4a' :
-           d < 10000   ? '#ef3b2c' :
-           d < 50000   ? '#cb181d' :
-           d < 100000   ? '#a50f15' :
-                          '#67000d';
-}
+function colourPicker(d) {
+   return d < 1 ? '#fff5f0' :
+           d < 5 ? '#fee0d2' :
+           d < 10  ? '#fcbba1' :
+           d < 30  ? '#fc9272' :
+           d < 60  ? '#fb6a4a' :
+           d < 250   ? '#ef3b2c' :
+           d < 500   ? '#cb181d' :
+           d < 2000   ? '#a50f15' :
+                         '#67000d';
+   }
 
-function style(feature) {
+function styleCountryLayer(feature) {
     return {
-        fillColor: getColor(feature.properties.sumDeaths),
+        fillColor: colourPicker(feature.properties.humansAffected),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -107,9 +106,9 @@ function style(feature) {
 }
 
 var geojson;
-geojson = new L.GeoJSON(countries, {style: style});
+geojson = new L.GeoJSON(countries, {style: styleCountryLayer});
 
-L.geoJson(countries, {style: style}).addTo(myMap);
+L.geoJson(countries, {style: styleCountryLayer}).addTo(myMap);
 
 function highlightFeature(e) {
     var layer = e.target;
@@ -143,7 +142,7 @@ function onEachFeature(feature, layer) {
 }
 
 geojson = L.geoJson(countries, {
-    style: style,
+    style: styleCountryLayer,
     onEachFeature: onEachFeature
 }).addTo(myMap);
 
@@ -157,9 +156,10 @@ info.onAdd = function (myMap) {
 
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
-    this._div.innerHTML = '<h4> Sum of Deaths </h4>' +  (props ?
-        '<b>' + props.name + '</b><br />' + props.sumDeaths + ' ' + 'deaths'
-        : 'from 2014 - 2017');
+    this._div.innerHTML = '<h4> Avian Influenza in Humans </h4>' +  (props ?
+        '<b>' + props.name + '</b><br />' + props.humansAffected + ' ' + 'cases'
+         + ' ' + props.humansDeaths + ' ' + 'deaths'
+        : 'Hover over a country to see details');
 };
 
 info.addTo(myMap);
@@ -179,13 +179,13 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (myMap) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 100, 500, 1000, 5000, 10000, 50000, 100000],
+        grades = [0, 5, 10, 30, 60, 250, 500, 2000],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+            '<i style="background:' + colourPicker(grades[i] + 1) + '"></i> ' +
             grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
     }
 

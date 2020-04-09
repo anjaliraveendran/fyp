@@ -11,9 +11,9 @@ def choropleth(request):
         'title': 'choropleth',
     })
 
-def dashChartView(request):
+def dashchartView(request):
     return render(request, "charts.html", {
-        'title': 'dashChart',
+        'title': 'dashchart',
     })
 
 def phrerView(request):

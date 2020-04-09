@@ -17,18 +17,9 @@ import landingpage.admin
 
 def home(request):
     """ Renders home page """
-    return render(request, "home.html", {   #used to be  '/home/home.html'
+    return render(request, "home.html", { #used to be  '/home/home.html'
         'title': 'user_home',
     })
-# outbreakdata_dataset
-
-# def emprestwoyearoutbreakdata_dataset(request):
-#
-#     emprestwoyearoutbreakdata = serialize('geojson', EmpresTwoYearOutbreakData.objects.all())
-#     print ( 'Json serialised outbreak data - ' )
-#     print ( emprestwoyearoutbreakdata[:100] )
-#
-#     return HttpResponse(emprestwoyearoutbreakdata, content_type='json')
 
 def avian14to17data_dataset(request):
 
