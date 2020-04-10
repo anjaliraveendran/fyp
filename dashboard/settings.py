@@ -26,7 +26,7 @@ SECRET_KEY = '+-g0!o^oa^%o=y)-5gk_m(@m(0#*f5f4gqk_!*rtc774(jqc24'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []  #TODO REMOVE CHIT
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'leaflet',
     'djgeojson',
-    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
-    'channels',
-    'channels_redis'
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig'
+    # 'channels',
+    # 'channels_redis'
 ]
 
 MIDDLEWARE = [
@@ -95,6 +95,9 @@ DATABASES = {
         'PASSWORD': 'breakfast123',
         'HOST': 'localhost',
         'PORT': '5432',
+        'TEST': {
+                    'NAME': 'testDB',
+                }
     }
 }
 
