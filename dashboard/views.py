@@ -20,8 +20,3 @@ def phrerView(request):
     return render(request, "phrer.html", {
         'title': 'phrerMap',
     })
-
-# def scatterView(request):
-#     return render(request, "scatter.html", {
-#         'title': 'scatterMap',
-#     })

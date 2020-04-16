@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,8 +44,6 @@ INSTALLED_APPS = [
     'leaflet',
     'djgeojson',
     'django_plotly_dash.apps.DjangoPlotlyDashConfig'
-    # 'channels',
-    # 'channels_redis'
 ]
 
 MIDDLEWARE = [
@@ -62,12 +59,13 @@ MIDDLEWARE = [
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+
 ROOT_URLCONF = 'dashboard.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #add extra templates here:=
+        #add extra templates here:
         'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -83,10 +81,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dashboard.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
@@ -108,7 +104,6 @@ SERIALIZATION_MODULES = {
     'geojson': 'djgeojson.serializers'
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -126,7 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -172,10 +166,7 @@ PLOTLY_DASH = {'cache_arguments': False}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
-# STATIC_URL = '/static2/'
-
 
 STATICFILES_LOCATION = 'static'
 
@@ -183,8 +174,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'dashboard/static'),
 ]
 
-#STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['dashboard/static']))
-# STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static2']))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LEAFLET_CONFIG = {
@@ -197,13 +186,7 @@ LEAFLET_CONFIG = {
     'TILES': [('OpenStreet Map', 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {'attribution': 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', 'maxZoom':20}),
               ('Terrain Map', 'http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': 'Copyright:© 2013 ESRI, i-cubed, GeoEye','maxZoom': 16}),
               ('Data Map', 'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {'attribution':'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
-              # ('Data Map', 'http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {'attribution': 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL'})]
 }
-
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, "static2")
-# ]
 
 LOGIN_REDIRECT_URL = "user_home"
 LOGOUT_REDIRECT_URL = "dashboard_welcome"

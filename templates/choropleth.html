@@ -1,38 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
 
-
-
-<!-- <script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>-->
-
 {% load leaflet_tags %}
 {% load geojson_tags %}
 {% block content %}
 {% leaflet_js %}
 {% leaflet_css %}
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css"/>
+<!--The choropleth functionality code used in this page is a variation of the
+ official example from Leaflet.JS: https://leafletjs.com/examples/choropleth/-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css"/>
 
 <h4 id='user_name_banner' style="display:inline;"><b style="color:#2E56C7;">Welcome,</b> {{ user.username }}</h4>
 
-
 <div id="myMap"></div>
-
-
 
 <style type="text/css">
     #myMap {
         width:100%;
         height:580px;
     }
-
-
 </style>
 
 <script type="text/javascript" src="{% static 'js_sb/leaflet.ajax.min.js' %}"></script>
 
-<!--TODO REMOVE IF DOESNT WORK-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--Data for the choropleth map-->
 <script src="{% static 'js_sb/choropleth.js' %}"></script>
 
 
@@ -45,6 +39,7 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
 }
+
 .info h4 {
     margin: 0 0 5px;
     color: #777;
@@ -65,14 +60,14 @@
 
 <script type="text/javascript">
 
+//Initialising map to a variable "myMap"
 var myMap = L.map('myMap').setView([48.2083537, 16.3725042], 2)
-
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map tiles by Carto, under CC BY 3.0. Data by OpenStreetMap, under ODbL',
             minZoom:1.5, maxZoom:20
             }).addTo(myMap);
 
-
+//Adding our choropleth data to the map
 new L.GeoJSON(countries).addTo(myMap);
 
 function map_layers(map,options){
@@ -81,7 +76,7 @@ function map_layers(map,options){
   console.log(options);
 }
 
-
+//Pick colour according to range of attribute value
 function colourPicker(d) {
    return d < 1 ? '#fff5f0' :
            d < 5 ? '#fee0d2' :
@@ -96,7 +91,7 @@ function colourPicker(d) {
 
 function styleCountryLayer(feature) {
     return {
-        fillColor: colourPicker(feature.properties.humansAffected),
+        fillColor: colourPicker(feature.properties.humansAffected), //Pick colour based on the value of humansAffected attribute
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -108,6 +103,7 @@ function styleCountryLayer(feature) {
 var geojson;
 geojson = new L.GeoJSON(countries, {style: styleCountryLayer});
 
+//adding styled data to the map
 L.geoJson(countries, {style: styleCountryLayer}).addTo(myMap);
 
 function highlightFeature(e) {
@@ -149,12 +145,12 @@ geojson = L.geoJson(countries, {
 var info = L.control();
 
 info.onAdd = function (myMap) {
-    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+    this._div = L.DomUtil.create('div', 'info'); //Create "information" div
     this.update();
     return this._div;
 };
 
-// method that we will use to update the control based on feature properties passed
+//Method that we will use to update the control based on feature properties passed
 info.update = function (props) {
     this._div.innerHTML = '<h4> Avian Influenza in Humans </h4>' +  (props ?
         '<b>' + props.name + '</b><br />' + props.humansAffected + ' ' + 'cases'
@@ -166,7 +162,6 @@ info.addTo(myMap);
 
 function highlightFeature(e) {
     var layer = e.target;
-
     info.update(layer.feature.properties);
 }
 

@@ -12,36 +12,17 @@
         Dashboard
       </div>
 
-<!--       Nav Item - Pages Collapse Menu-->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_home' %}">
           <i class="fa fa-map-marker"></i>
-          <span>World Outbreaks</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-<!--            <h6 class="collapse-header">World Outbreaks</h6>-->
-            <a class="collapse-item" href="{% url 'user_home' %}">Poultry Cases</a>
-            <a class="collapse-item" href="{% url 'user_home' %}">Human Cases</a>
-          </div>
-        </div>
+          <span>World Outbreaks</span></a>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'choropleth' %}">
           <i class="fa fa-globe"></i>
-          <span>Choropleth Map</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-<!--            <h6 class="collapse-header">Custom Utilities:</h6>-->
-            <a class="collapse-item" href="{% url 'choropleth' %}">Poultry Deaths</a>
-            <a class="collapse-item" href="{% url 'choropleth' %}">Human Deaths</a>
-          </div>
-        </div>
+          <span>Choropleth Map</span></a>
       </li>
-
 
              <hr class="sidebar-divider">
 

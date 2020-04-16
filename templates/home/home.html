@@ -5,34 +5,37 @@
 
 <script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script>
 
-
 {% load geojson_tags %}
 {% block content %}
 
-
-
 <meta charset='utf-8' />
-
-
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
 
 <div id='map'></div>
 <div id='console'>
-    <h1>Scatter Map</h1>
 
+  <h1>Outbreak Map</h1>
+
+<!-- Cases on the map coloured according to type of species-->
 <div class='session' id='legend' >
-<div><span style="background-color: #b2abd2"></span>Domestic Bird Cases</div>
-<div><span style="background-color: #e66101"></span>Wild Bird Cases</div>
-<div><span style="background-color: #fdb863"></span>Human Cases</div>
+<div><span style="background-color: #a6cee3"></span>Domestic Bird Cases</div>
+<div><span style="background-color: #1f78b4"></span>Wild Bird Cases</div>
+<div><span style="background-color: #b2df8a"></span>Human Cases</div>
 </div>
 
+<!--  Year slider-->
 <div class='session' id='sliderbar'>
   <h2>Year: <label id='active-year'>2004</label></h2>
   <input id='slider' class='row' type='range' min='2004' max='2020' step='1' value='16' />
 </div>
 
+<div>
+  <h2> Hover over the cases</h2>
+</div>
+
+<!--  Virus serotype dropdown filter-->
 <div class='session'>
   <h2>Filter by Virus Subtype</h2>
 <div class='row' id='filters'>
@@ -80,8 +83,6 @@
       <option id="h7hpai" name="toggle" value="H7 HPAI">H7 HPAI</option>
       <option id="h9hpai" name="toggle" value="H9 HPAI">H9 HPAI</option>
       <option id="h2n2lpai" name="toggle" value="H2N2 LPAI">H2N2 LPAI</option>
-
-
     </select>
 </div>
 </div>
@@ -177,17 +178,18 @@ width: 10px;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
 <script type="text/javascript">
+//Mapbox token generated from mapbox.com/access-tokens/ to configure the Mapbox GL JS library and use their services
 mapboxgl.accessToken = 'pk.eyJ1IjoiYW5qYWxpcmF2ZWVuZHJhbiIsImEiOiJjazgwZ3RjdG8wNTBxM2dtc2toZnU4bW8zIn0.cNgbDLku-qod0zbzncY4Rw';
 
+//Initialising our map: Storing our map object in a variable 'map'
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/light-v10',
-  //style: 'mapbox://styles/mapbox/streets-v11',
   center: [-74.0059, 40.7128],
   zoom: 2.5
 });
 
-
+//After the map is loaded, start adding features on to the map
 map.on('load', function() {
 
   var popup = new mapboxgl.Popup({
@@ -196,7 +198,6 @@ map.on('load', function() {
   });
 
   function showPopup(e) {
-    // Updates the cursor to a hand (interactivity)
     map.getCanvas().style.cursor = 'pointer';
 
     // Show the popup at the coordinates with some data
@@ -206,10 +207,13 @@ map.on('load', function() {
            +"<br>"+ "LOCALITY = " + e.features[0].properties.localityName
            +"<br>"+ "SPECIES = " + e.features[0].properties.speciesDescription
            +"<br>"+ "DATE = " + e.features[0].properties.reportingDate.substring(0,11)
-           +"<br>"+ "SUM OF CASES = " + e.features[0].properties.sumCases
-           +"<br>"+ "SUM OF DEATHS = " + e.features[0].properties.sumDeaths
-           +"<br>"+ "HUMANS AFFECTED = " + e.features[0].properties.humansAffected
-           +"<br>"+ "HUMAN DEATHS = " + e.features[0].properties.humansDeaths)
+           +"<br>"+ "BIRD CASES = " + e.features[0].properties.sumCases
+           +"<br>"+ "BIRD DEATHS = " + e.features[0].properties.sumDeaths
+           +"<br>"+ "SUM OF BIRDS AT RISK = " + e.features[0].properties.sumAtRisk
+           +"<br>"+ "BIRDS DESTROYED = " + e.features[0].properties.sumDestroyed
+           +"<br>"+ "HUMAN CASES = " + e.features[0].properties.humansAffected
+           +"<br>"+ "HUMAN DEATHS = " + e.features[0].properties.humansDeaths
+           +"<br>"+ "SOURCE OF DATA = " + e.features[0].properties.source)
       .addTo(map);
   }
 
@@ -218,49 +222,51 @@ map.on('load', function() {
     popup.remove();
   }
 
-  function checkEmpty(info) {
+  function checkIfEmpty(info) {
     return (info) ? info : "No data";
   }
 
   map.on('mouseenter', 'cases', showPopup);
   map.on('mouseleave', 'cases', hidePopup);
 
+//Layer adding all our data on to the map as markers
   map.addLayer({
     id: 'cases',
     type: 'circle',
 
     source: {
       type: 'geojson',
-      data: '{% url 'empresdomesticwildhuman' %}'
+      data: '{% url 'empresdomesticwildhuman' %}' //URL of our geojson data
     },
 
     paint: {
-
+      //Setting marker radius from small to large according to intensity of outbreak
       'circle-radius': [
         'interpolate',
         ['linear'],
         ['number', ['get', 'sumCases']],
-        0, 2,
-        4, 6,
-        12, 24
+        0, 4,
+        8, 20
       ],
 
         'circle-color': {
           property: 'birdType',
           type: 'categorical',
           stops: [
-              ['domestic', '#b2abd2'],
-              ['wild', '#e66101'],
-              ['human', '#fdb863']]
+              ['domestic', '#a6cee3'],
+              ['wild', '#1f78b4'],
+              ['human', '#b2df8a']]
       },
 
-      'circle-opacity': 0.8
+     'circle-opacity': 0.6
     },
 
+    //filter the data according to reportingYear attribute
     filter: ['==', ['number', ['get', 'reportingYear']], 2004]
 
   });
 
+//Match expression to filter data according to virus serotype
 function generateSerotypeFilterCond( serotype ){
   if (serotype === 'ALL') {
     filterSerotype = ['!=', ['string', ['get', 'serotypes']], 'placeholder'];
@@ -356,6 +362,7 @@ function generateSerotypeFilterCond( serotype ){
   return filterSerotype;
 }
 
+//Listen for changes in the slider's "year" value
 document.getElementById('slider').addEventListener('input', function(e) {
   var year = parseInt(e.target.value);
   var serotype  = document.getElementById('filters').value;
@@ -371,19 +378,17 @@ document.getElementById('slider').addEventListener('input', function(e) {
 
 });
 
+//
 document.getElementById('filters').addEventListener('change', function(e) {
   var serotype = e.target.value;
 
+  //Use our serotype selection function to select data consisting of the serotype selected by the user
   var filterSerotype = generateSerotypeFilterCond( serotype );
-
 
   var yearVal = parseInt( document.getElementById('active-year').innerText );
   filterYear = ['==', ['number', ['get', 'reportingYear']], yearVal]
 
-  //serotype
-  console.log( yearVal );
-
-  // add year to below filter
+  //Finally filter using both the time slider selection and serotype selection
   map.setFilter('cases', ['all', filterYear, filterSerotype] );
 
 });

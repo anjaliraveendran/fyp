@@ -4,17 +4,15 @@ import dash_html_components as html
 import pandas as pd
 import plotly.graph_objs as go
 from django_plotly_dash import DjangoDash
-import plotly.express as px
 
-
+#FOSS Codepen stylesheet
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = DjangoDash('dashchart', external_stylesheets=external_stylesheets)
 df = pd.read_excel('/Users/anjaliraveendran/Desktop/FYP/csv_analysis/scatterPlotTry4.xlsx')
 
-
-
 app.layout = html.Div([
+    #Graph 1: Human AI cases over time
     dcc.Graph(
         id='scatter-plot',
         figure={
@@ -41,7 +39,7 @@ app.layout = html.Div([
             )
         }
     ),
-    # GRAPH 2:-
+    #Graph 2: Human AI deaths over time
     dcc.Graph(
         id='scatter-plot',
         figure={

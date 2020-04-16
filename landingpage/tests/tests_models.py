@@ -1,6 +1,9 @@
 from django.test import SimpleTestCase
 from landingpage.models import EmpresDomesticWildHuman
 
+# This class tests the Django models we have created
+# It confirms that the datatypes of the data values we upload
+# to the model matches the original model attribute's datatypes
 class ModelTests(SimpleTestCase):
 
     def test_EmpresDomesticWildHuman_default_values(self):

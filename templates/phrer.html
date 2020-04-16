@@ -10,6 +10,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/8.5.1/nouislider.min.css"/>
 
+<!--Embed plotly stacked barchart-->
 <div class="{% plotly_class name='phrerMap' %} card" style="height:100%; width:50%;" >
     {%plotly_app name="phrerMap" ratio=0.65 %}
 </div>
@@ -140,97 +141,52 @@ var map = new mapboxgl.Map({
 
 map.on('style.load', function (e) {
     console.log(e.style.sprite);
-    map.addSource('markers', {
+    map.addSource('markers', { //Data from PHRER(Public Health Response Effectiveness) analysis of H5N1
         "type": "geojson",
         "data": {
                 "type": "FeatureCollection",
                 "name": "phrerHtml",
                 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
                 "features": [
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2005", "phrer": "-1416.5517658756464", "phrer2": "0", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2006", "phrer": "-895.06276312544037", "phrer2": "0", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2007", "phrer": "2330.0712424644548", "phrer2": "2330.0712424644548", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2008", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2009", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2010", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2011", "phrer": "53.676894647118999", "phrer2": "53.676894647118999", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2012", "phrer": "162.27177445836506", "phrer2": "162.27177445836506", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2013", "phrer": "127.85256940468227", "phrer2": "127.85256940468227", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2014", "phrer": "-131.14130904977372", "phrer2": "0", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2015", "phrer": "395.33230153846154", "phrer2": "395.33230153846154", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2016", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2017", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "Cambodia", "year": "2018", "phrer": "100000000", "phrer2": "100000000", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM", "iso_num": "116" }, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2005", "phrer": "-1318.5039722487672", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2006", "phrer": "-690.8663981599035", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2007", "phrer": "2233.4208858896259", "phrer2": "2233.4208858896259", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2008", "phrer": "1962.9378782080703", "phrer2": "1962.9378782080703", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2009", "phrer": "-125.98829884887553", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2010", "phrer": "108.52677332024213", "phrer2": "108.52677332024213", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2011", "phrer": "-34.866841902378013", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2012", "phrer": "4579.5262198257687", "phrer2": "4579.5262198257687", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2013", "phrer": "14034.39257843765", "phrer2": "14034.39257843765", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2014", "phrer": "100000000", "phrer2": "100000000", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2015", "phrer": "-3730.9267203524882", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2016", "phrer": "408.59746486836519", "phrer2": "408.59746486836519", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2017", "phrer": "-7803.8948449094423", "phrer2": "0", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "China", "year": "2018", "phrer": "100000000", "phrer2": "100000000", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN", "iso_num": "156" }, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2005", "phrer": "", "phrer2": "100000000", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2006", "phrer": "58038.877859662556", "phrer2": "58038.877859662556", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2007", "phrer": "-120734.77944745841", "phrer2": "0", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2008", "phrer": "-4064.3285050652617", "phrer2": "0", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2009", "phrer": "3870.8734018818718", "phrer2": "3870.8734018818718", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2010", "phrer": "-17013.303047143727", "phrer2": "0", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2011", "phrer": "2079.2728469000035", "phrer2": "2079.2728469000035", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2012", "phrer": "9482.1296750805523", "phrer2": "9482.1296750805523", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2013", "phrer": "-1749.8216180367333", "phrer2": "0", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2014", "phrer": "77.618758158218029", "phrer2": "77.618758158218029", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2015", "phrer": "1352.340846230036", "phrer2": "1352.340846230036", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2016", "phrer": "777.2652628322503", "phrer2": "777.2652628322503", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2017", "phrer": "8204.8311337350115", "phrer2": "8204.8311337350115", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Egypt", "year": "2018", "phrer": "21656.701334715035", "phrer2": "21656.701334715035", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY", "iso_num": "818" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2005", "phrer": "0", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2006", "phrer": "4.5927779707446419", "phrer2": "4.5927779707446419", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2007", "phrer": "9.8210661139757764", "phrer2": "9.8210661139757764", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2008", "phrer": "-2.0260155675812141", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2009", "phrer": "29.677093690551683", "phrer2": "29.677093690551683", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2010", "phrer": "0.25598013820124982", "phrer2": "0.25598013820124982", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2011", "phrer": "63.044899367695677", "phrer2": "63.044899367695677", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2012", "phrer": "-56967.19084043461", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2013", "phrer": "7130.2934723862845", "phrer2": "7130.29347238628", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2014", "phrer": "-906.39564295254047", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2015", "phrer": "-3289.5076070893583", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2016", "phrer": "-1297.8993810729862", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2017", "phrer": "-3493.2615303054959", "phrer2": "0", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Indonesia", "year": "2018", "phrer": "217.35663583159933", "phrer2": "217.35663583159933", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN", "iso_num": "360" }, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2005", "phrer": "269615.41470437299", "phrer2": "269615.41470437299", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2006", "phrer": "3327.2918017603256", "phrer2": "3327.2918017603256", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2007", "phrer": "-8.4466516965161045", "phrer2": "0", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2008", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2009", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2010", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2011", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2012", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2013", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2014", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2015", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2016", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2017", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Thailand", "year": "2018", "phrer": "100000000", "phrer2": "100000000", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA", "iso_num": "764" }, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2005", "phrer": "0", "phrer2": "0", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2006", "phrer": "-148.19041621507503", "phrer2": "0", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2007", "phrer": "5340.7552078919089", "phrer2": "5340.7552078919089", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2008", "phrer": "9654.1623317851845", "phrer2": "9654.1623317851845", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2009", "phrer": "-8691.3511291750001", "phrer2": "0", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2010", "phrer": "2747.8678338596064", "phrer2": "2747.8678338596064", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2011", "phrer": "38.231319658514366", "phrer2": "38.231319658514366", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2012", "phrer": "1248.7698170637686", "phrer2": "1248.7698170637686", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2013", "phrer": "4605.4643325096267", "phrer2": "4605.4643325096267", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2014", "phrer": "100000000", "phrer2": "100000000", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2015", "phrer": "8805.7429623093376", "phrer2": "8805.7429623093376", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2016", "phrer": "100000000", "phrer2": "100000000", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2017", "phrer": "100000000", "phrer2": "100000000", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } },
-                { "type": "Feature", "properties": { "country": "Vietnam", "year": "2018", "phrer": "100000000", "phrer2": "100000000", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM", "iso_num": "704" }, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } }
+                { "type": "Feature", "properties": { "point1": "2005: Emergence of H5N1 in humans",
+                                                     "point2": "2006-2010: Drop in cases",
+                                                     "point3": "2011: Growth in cases",
+                                                     "point4": "2013: Highest number of human H5N1 cases",
+                                                     "point5": "2015: H5N1 eradicated in humans",
+                                                     "measures":"Movement Control, Screening, Disinfection, Stamping Out",
+                                                     "country": "Cambodia", "latitude": 12.5657, "longitude": 104.991, "iso_alpha": "KHM"}, "geometry": { "type": "Point", "coordinates": [ 104.991, 12.5657 ] } },
+
+                { "type": "Feature", "properties": { "point1": "2005: Emergence of H5N1 in humans",
+                                                     "point2": "2006: Highest number of human H5N1 cases",
+                                                     "point3": "2010-2016: Gradual decrease in cases",
+                                                     "point4": "2017: H5N1 eradicated in humans",
+                                                     "point5": "2018: H5N1 eradicated in humans",
+                                                     "measures":"Movement Control, Screening, Disinfection, Stamping Out, Quarantine, Vaccination, Spraying",
+                                                     "country": "China", "year": "2018", "latitude": 35.8617, "longitude": 104.1954, "iso_alpha": "CHN"}, "geometry": { "type": "Point", "coordinates": [ 104.1954, 35.8617 ] } },
+
+                { "type": "Feature", "properties": { "point1": "2006: Emergence of H5N1 in humans",
+                                                     "point2": "2007-2011: High number of human cases",
+                                                     "point3": "2012-2014: Drop in cases",
+                                                     "point4": "2015: Worst human H5N1 outbreak in history",
+                                                     "point5": "2018: Zero human cases",
+                                                     "measures":"Movement Control, Screening, Disinfection, Stamping Out, Quarantine, Vaccination, Dip/Spray", "country": "Egypt", "year": "2018", "latitude": 26.8206, "longitude": 30.8025, "iso_alpha": "EGY" }, "geometry": { "type": "Point", "coordinates": [ 30.8025, 26.8206 ] } },
+
+                { "type": "Feature", "properties": { "point1": "2005: Emergence of H5N1 in humans",
+                                                     "point2": "2006: Highest number of human H5N1 cases",
+                                                     "point3": "2007 onwards: Gradual decrease in number of cases",
+                                                     "point4": "2018: Zero human cases",
+                                                     "measures":"Disinfection, Quarantining, Movement control restrictions", "country": "Indonesia", "year": "2018", "latitude": 0.7893, "longitude": 113.9213, "iso_alpha": "IDN"}, "geometry": { "type": "Point", "coordinates": [ 113.9213, 0.7893 ] } },
+
+                { "type": "Feature", "properties": { "point1": "2004: Emergence of H5N1 in humans",
+                                                     "point2": "2005, 2006: Decrease in cases",
+                                                     "point3": "2007 onwards: H5N1 eradicated in humans",
+                                                     "measures":"Movement control within the country, Screening of areas, Disinfection of premises, Quarantining and Spraying","country": "Thailand", "year": "2018", "latitude": 15.87, "longitude": 100.9925, "iso_alpha": "THA"}, "geometry": { "type": "Point", "coordinates": [ 100.9925, 15.87 ] } },
+
+                { "type": "Feature", "properties": { "point1": "2004: Emergence of H5N1 in humans",
+                                                     "point2": "2005: High number of cases",
+                                                     "point3": "2006-2013: Gradual decrease in number of cases",
+                                                     "point4": "2015 onwards: H5N1 eradicated in humans",
+                                                     "measures":"Movement Control, Screening, Disinfection, Stamping Out, Quarantine, Vaccination, Dip/Spray", "country": "Vietnam", "year": "2018", "latitude": 14.0583, "longitude": 108.2772, "iso_alpha": "VNM"}, "geometry": { "type": "Point", "coordinates": [ 108.2772, 14.0583 ] } }
                 ]
                 }
          });
@@ -248,8 +204,12 @@ map.on('style.load', function (e) {
     // Show the popup at the coordinates with some data
     popup.setLngLat(e.lngLat)
           .setHTML(e.features[0].properties.country
-          +"<br>"+ "PHRER:" + e.features[0].properties.phrer2
-          +"<br>"+ "Measures taken: ")
+          +"<br>"+ "Measures Applied: " + e.features[0].properties.measures
+          +"<br>"+ "Key Events:"
+          +"<br>" + e.features[0].properties.point1
+          +"<br>" + e.features[0].properties.point2
+          +"<br>" + e.features[0].properties.point3
+          +"<br>" + e.features[0].properties.point4)
       .addTo(map);
   }
 

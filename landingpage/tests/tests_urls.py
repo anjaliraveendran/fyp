@@ -6,11 +6,10 @@ from django.urls import reverse, resolve
 from home.views import home
 from landingpage.views import avian14to17data_dataset, empresdomesticwildhuman_dataset
 
+#     Integration test to check if the connection between the template and view is working correctly.
+#     Given a url name string, reverse match and resolve the url to the right view
 
 class UrlToViewIntegrationTests(SimpleTestCase):
-    ''' Integration test to check if the connection between the template and view is working correctly.
-        Given a url name string, reverse match and resolve the url to the right view
-    '''
 
     def test_home_url_to_view_mapping(self):
         ''' reverse match and resolve the view from the url string for homepage '''

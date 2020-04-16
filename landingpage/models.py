@@ -7,25 +7,20 @@ from django.contrib.auth.models import User
 from django.db.models import Q, Model
 from datetime import date
 
-####################################### Create your models here.###############################
-#all django models need to inherit from the base model class -->
-# models.Model class
-
 class model(models.Model):
     class Meta:
         managed = False
         abstract = True
 
+# Initial dataset consisting of AI data of 2017 to 2018 (EMPRES FAO) (not used in final app)
 class EmpresTwoYearOutbreakData(models.Model):
 
     disease = models.CharField(max_length=250,default='SOME STRING')
     geom    = models.PointField(blank = True, null=True,srid=4326)
-    #objects = models.GeoManager()
     serotypes = models.CharField(max_length=250,default='SOME STRING')
     speciesDescription = models.CharField(max_length=250, default='SOME STRING')
     country = models.CharField(max_length=250, default='SOME STRING')
     sumCases = models.FloatField(default=0)
-    #print(sumCases)
     sumDeaths = models.FloatField(default=0)
 
     def __str__(self):
@@ -34,8 +29,8 @@ class EmpresTwoYearOutbreakData(models.Model):
     class Meta:
         verbose_name_plural = "Empres Two Year Outbreak Data"
 
-
-class Avian14to17Data(models.Model): #diff strain, gender, year, region, etc
+# Dataset consisting of AI data of 2014 to 2017 (EMPRES FAO) (not used in final app)
+class Avian14to17Data(models.Model):
 
     source = models.CharField(max_length=250, default='SOME STRING')
     latitude = models.FloatField(default=0)
@@ -69,7 +64,7 @@ class Avian14to17Data(models.Model): #diff strain, gender, year, region, etc
     class Meta:
         verbose_name_plural = "Avian Data 2014-2017"
 
-
+# Human cases of AI dataset (not used in final app)
 class HumanCasesDataset(models.Model):
 
     collector_institution = models.CharField(max_length=250, default='SOME STRING')
@@ -93,6 +88,7 @@ class HumanCasesDataset(models.Model):
     class Meta:
         verbose_name_plural = "Human Cases Data"
 
+# Europe Isolate data taken from GISAID (not used in final app)
 class GisaidEpifluEuropeIsolateData(models.Model):
 
     isolate_id = models.CharField(max_length=250, default='SOME STRING')
@@ -115,7 +111,7 @@ class GisaidEpifluEuropeIsolateData(models.Model):
     class Meta:
         verbose_name_plural = "Gisaid Epiflu Europe Isolate Data"
 
-
+# Flock Outbreak Dataset from OpenFlu DB (not used in final app)
 class OpenFluFlockOutbreakData(models.Model):
 
     ofl_isolate_id = models.CharField(max_length=250, default='SOME STRING')
@@ -133,7 +129,7 @@ class OpenFluFlockOutbreakData(models.Model):
     class Meta:
         verbose_name_plural = "Open-Flu Flock Outbreak Data"
 
-
+# Dataset used in main map (From EMPRES FAO) Contains all AI cases of 2004 to 2020.
 class EmpresDomesticWildHuman(models.Model):
 
     source = models.CharField(max_length=250, default='SOME STRING')
@@ -166,22 +162,3 @@ class EmpresDomesticWildHuman(models.Model):
 
     class Meta:
         verbose_name_plural = "Empres Domestic Wild Human"
-
-
-# class PublicHealthResponseEffectiveness(models.Model):
-#     country = models.CharField(max_length=250, default='SOME STRING')
-#     year = models.CharField(max_length=250, default='SOME STRING')
-#     phrer = models.FloatField(default=0)
-#     phrer2 = models.FloatField(default=0)
-#     latitude = models.FloatField(default=0)
-#     longitude = models.FloatField(default=0)
-#     geom = models.PointField(blank=True, null=True, srid=4326)
-#     iso_alpha = models.CharField(max_length=250, default='SOME STRING')
-#     iso_num = models.FloatField(default=0)
-#
-#     def __str__(self):
-#         return self.phrer
-#
-#     class Meta:
-#         verbose_name_plural = "Public Health Response Effectiveness"
-#
