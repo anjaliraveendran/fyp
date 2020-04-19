@@ -14,5 +14,3 @@ urlpatterns = [
         name="user_logout"),
 
 ]
-
-# print ( urlpatterns )

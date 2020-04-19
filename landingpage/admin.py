@@ -4,50 +4,51 @@ from datetime import datetime
 import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
-from leaflet.admin import LeafletGeoAdmin
+
+# from leaflet.admin import LeafletGeoAdmin
 
 from .models import Avian14to17Data, EmpresTwoYearOutbreakData, HumanCasesDataset, GisaidEpifluEuropeIsolateData, \
     OpenFluFlockOutbreakData, EmpresDomesticWildHuman
 
-class EmpresTwoYearOutbreakDataAdmin(LeafletGeoAdmin):
-    pass
-admin.site.register(EmpresTwoYearOutbreakData, EmpresTwoYearOutbreakDataAdmin)
+# class EmpresTwoYearOutbreakDataAdmin(LeafletGeoAdmin):
+#     pass
+admin.site.register(EmpresTwoYearOutbreakData)
 
 
-class Avian14to17DataAdmin(LeafletGeoAdmin):
-    pass
-admin.site.register(Avian14to17Data, Avian14to17DataAdmin)
+# class Avian14to17DataAdmin(LeafletGeoAdmin):
+#     pass
+admin.site.register(Avian14to17Data)
 
 
-class HumanCasesDatasetAdmin(LeafletGeoAdmin):
-    pass
-admin.site.register(HumanCasesDataset, HumanCasesDatasetAdmin)
+# class HumanCasesDatasetAdmin(LeafletGeoAdmin):
+#     pass
+admin.site.register(HumanCasesDataset)
 
 
-class GisaidEpifluEuropeIsolateDataAdmin(LeafletGeoAdmin):
-    pass
-admin.site.register(GisaidEpifluEuropeIsolateData, GisaidEpifluEuropeIsolateDataAdmin)
+# class GisaidEpifluEuropeIsolateDataAdmin(LeafletGeoAdmin):
+#     pass
+admin.site.register(GisaidEpifluEuropeIsolateData)
 
-
-class OpenFluFlockOutbreakDataAdmin(LeafletGeoAdmin):
-    pass
-admin.site.register(OpenFluFlockOutbreakData, OpenFluFlockOutbreakDataAdmin)
+#
+# class OpenFluFlockOutbreakDataAdmin(LeafletGeoAdmin):
+#     pass
+admin.site.register(OpenFluFlockOutbreakData)
 
 
 # Main map dataset
-class EmpresDomesticWildHumanAdmin(LeafletGeoAdmin):
-    pass
+# class EmpresDomesticWildHumanAdmin(LeafletGeoAdmin):
+#     pass
 
 # Register model in admin page
-admin.site.register(EmpresDomesticWildHuman, EmpresDomesticWildHumanAdmin)
+admin.site.register(EmpresDomesticWildHuman)
 
 # Pandas excelReader reads data spreadsheet
 # and uploads the data to the model in the database:
-
-# df_excelReader = pd.read_excel('/Users/anjaliraveendran/Desktop/FYP/csv/empresfinaltry.xlsx')
+#
+# df_excelReader = pd.read_excel('./empresDomesticWildHuman.xlsx')
 # df_excelReader = df_excelReader.fillna( 0 )
-
-# The below for-loop will help filter out corrupt rows of data, if present in the dataset
+#
+# # # The below for-loop will help filter out corrupt rows of data, if present in the dataset
 # for index, row in df_excelReader.iterrows():
 #     try:
 #         latitude = row['latitude']
@@ -83,4 +84,4 @@ admin.site.register(EmpresDomesticWildHuman, EmpresDomesticWildHumanAdmin)
 #         print ('!!! ERROR !!! - ROW Index {}, ROW {}'.format(index, row))
 #         print (e)
 #         print ('-------')
-
+#

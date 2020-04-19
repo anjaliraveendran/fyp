@@ -9,7 +9,7 @@ from django_plotly_dash import DjangoDash
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = DjangoDash('dashchart', external_stylesheets=external_stylesheets)
-df = pd.read_excel('/Users/anjaliraveendran/Desktop/FYP/csv_analysis/scatterPlotTry4.xlsx')
+df = pd.read_excel('./scatterPlotDataset.xlsx')
 
 app.layout = html.Div([
     #Graph 1: Human AI cases over time

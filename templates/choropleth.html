@@ -70,12 +70,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //Adding our choropleth data to the map
 new L.GeoJSON(countries).addTo(myMap);
 
-function map_layers(map,options){
-  console.log( "*** We have entered the map_layers function ***" );
-  console.log( "Options" );
-  console.log(options);
-}
-
 //Pick colour according to range of attribute value
 function colourPicker(d) {
    return d < 1 ? '#fff5f0' :
