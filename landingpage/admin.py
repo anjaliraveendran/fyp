@@ -12,27 +12,27 @@ from .models import Avian14to17Data, EmpresTwoYearOutbreakData, HumanCasesDatase
 
 class EmpresTwoYearOutbreakDataAdmin(LeafletGeoAdmin):
     pass
-admin.site.register(EmpresTwoYearOutbreakData)
+admin.site.register(EmpresTwoYearOutbreakData,EmpresTwoYearOutbreakDataAdmin)
 
 
 class Avian14to17DataAdmin(LeafletGeoAdmin):
     pass
-admin.site.register(Avian14to17Data)
+admin.site.register(Avian14to17Data,Avian14to17DataAdmin)
 
 
 class HumanCasesDatasetAdmin(LeafletGeoAdmin):
     pass
-admin.site.register(HumanCasesDataset)
+admin.site.register(HumanCasesDataset,HumanCasesDatasetAdmin)
 
 
 class GisaidEpifluEuropeIsolateDataAdmin(LeafletGeoAdmin):
     pass
-admin.site.register(GisaidEpifluEuropeIsolateData)
+admin.site.register(GisaidEpifluEuropeIsolateData,GisaidEpifluEuropeIsolateDataAdmin)
 
 
 class OpenFluFlockOutbreakDataAdmin(LeafletGeoAdmin):
     pass
-admin.site.register(OpenFluFlockOutbreakData)
+admin.site.register(OpenFluFlockOutbreakData,OpenFluFlockOutbreakDataAdmin)
 
 
 # Main map dataset
@@ -40,9 +40,9 @@ class EmpresDomesticWildHumanAdmin(LeafletGeoAdmin):
     pass
 
 # Register model in admin page
-admin.site.register(EmpresDomesticWildHuman)
+admin.site.register(EmpresDomesticWildHuman,EmpresDomesticWildHumanAdmin)
 
-# Pandas excelReader reads data spreadsheet
+# Pandas read_excel reads data spreadsheet
 # and uploads the data to the model in the database:
 
 df_excelReader = pd.read_excel('./empresDomesticWildHuman.xlsx')
