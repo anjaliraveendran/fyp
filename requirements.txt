@@ -68,7 +68,6 @@ Jinja2==2.11.1
 jsonschema==3.2.0
 jupyter-client==6.0.0
 jupyter-core==4.6.3
-leaflet==0.0.3
 macholib==1.14
 MarkupSafe==1.1.1
 meds==1215
