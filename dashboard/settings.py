@@ -75,8 +75,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'avianinfluenza',
-        'USER': 'anotheruser', #sample_user
-        'PASSWORD': 'breakfast123', #sample_password
+        'USER': 'sample_user',
+        'PASSWORD': 'sample_password',
         'HOST': 'localhost',
         'PORT': '5432',
         'TEST': {
