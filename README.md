@@ -14,20 +14,22 @@ Ubuntu OS
     ```chmod +x gisApp.sh```
 4. Now run the shell script:
     ```sudo ./gisApp.sh```
+<br />    
 5. Wait for the script to build the entire web app (This might take a while, please wait for the database setup and the dependencies to install correctly)
+<br />
     <ul>
-    <li>The script will promp the user for some inputs - please enter the necessary details. </li>
-    <li>PostgreSQL password - you can enter 'password' or any other 1 word you can rememeber</li>
-    <li>You will have to re-enter the postgres password</li>
-    <li>If installs are going correctly, script will ask you to press 'enter' to continue</li>
-    <li>Before loading the data into Postgres and launching the web app, the script will ask the login credentials for the app.
-        enter the following:
-        username : yourname
-        password: yourpassword
+    <li>The script will promp the user for some inputs - please enter the necessary details. </li><br />
+    <li>PostgreSQL password - you can enter 'password' or any other 1 word you can rememeber</li><br />
+    <li>You will have to re-enter the postgres password</li><br />
+    <li>If installs are going correctly, script will ask you to press 'enter' to continue</li><br />
+    <li>Before loading the data into Postgres and launching the web app, the script will ask the login credentials for the app.<br />
+        enter the following:<br />
+        username : yourname<br />
+        password: yourpassword<br />
         email: youremail
-    </li>
+    </li><br />
     <li>Once this is done the job will load the data into Postgres and set up your web server. Please wait 10-15min as the first load takes a while.</li>
-    </ul>
+    </ul><br />
 6. Once everything is set up and installed, the terminal will display this:
 
 ```Starting development server at http://127.0.0.1:8000/``` <br />
