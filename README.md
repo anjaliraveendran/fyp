@@ -21,10 +21,10 @@ Ubuntu OS
     <li>PostgreSQL password - you can enter 'password' or any other 1 word you can rememeber</li><br />
     <li>You will have to re-enter the postgres password</li><br />
     <li>If installs are going correctly, script will ask you to press 'enter' to continue</li><br />
-    <li>Before loading the data into Postgres and launching the web app, the script will ask the login credentials for the app (These are your admin user credentials).<br />
-        enter the following:<br />
-        username : yourname<br />
-        password: yourpassword<br />
+    <li>Before loading the data into Postgres and launching the web app, the script will ask the login credentials for the app (These are your admin user credentials). <br />
+        enter the following: <br />
+        username : yourname <br />
+        password: yourpassword <br />
         email: youremail@gmail.com
     </li><br />
     <li>Once this is done the job will load the data into Postgres and set up your web server. Please wait 10-15min as the first load takes a while.</li>
@@ -36,7 +36,7 @@ Ubuntu OS
 
 Open the link provided in the terminal to access the local webserver.
 (Note: **Do not click ctrl-C** to copy the link as this will **exit the terminal** and quit the process. Copy the link manually instead or ctrl + click). <br />
-7. When the local webserver is launched, you will be asked to login with the admin user credentials you created in **step 5.5**. After logging in, you will enter the dashboard.
+7. When the local webserver is launched, you will be asked to login with the admin user name and password you created in **step 5.v)**. After logging in, you will enter the dashboard.
 
 
 
