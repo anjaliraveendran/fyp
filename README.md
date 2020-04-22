@@ -19,10 +19,6 @@ Ubuntu OS
 
 ```Starting development server at http://127.0.0.1:8000/``` <br />
 ```Quit the server with CONTROL-C.```
-<ul>
-<li>Line 1</li>
-<li>Line 2</li>
-</ul>
 
 (Note: Do not click ctrl-C to copy the link as this will exit the terminal and quit the process. Copy the link manually instead.)
 
