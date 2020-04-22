@@ -32,11 +32,11 @@ Ubuntu OS
 6. Once everything is set up and installed, the terminal will display this:
 
 ```Starting development server at http://127.0.0.1:8000/``` <br />
-```Quit the server with CONTROL-C.```
-
+```Quit the server with CONTROL-C.``` <br />
 Open the link provided in the terminal to access the local webserver.
 (Note: **Do not click ctrl-C** to copy the link as this will **exit the terminal** and quit the process. Copy the link manually instead or ctrl + click). <br />
-7. When the local webserver is launched, you will be asked to login with the admin user name and password you created in **step 5.v)**. After logging in, you will enter the dashboard.
+
+7. When the local webserver is launched, you will be asked to login with the admin user name and password you created in **step 5.v**. After logging in, you will enter the dashboard.
 
 
 
