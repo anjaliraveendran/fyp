@@ -17,9 +17,9 @@ Ubuntu OS
 5. Wait for the script to build the entire web app (This might take a while, please wait for the database setup and the dependencies to install correctly)
 6. Once everything is set up and installed, the terminal will display this (Click on the localhost link to launch the server):
 
-```Starting development server at http://127.0.0.1:8000/
-   Quit the server with CONTROL-C.
-```
+```Starting development server at http://127.0.0.1:8000/```
+```Quit the server with CONTROL-C.```
+
 (Note: Do not click ctrl-C to copy the link as this will exit the terminal and quit the process. Copy the link manually instead.)
 
 
