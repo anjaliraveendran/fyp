@@ -13,10 +13,9 @@ Ubuntu OS
 3. Run this command in order to make the shell script executable:
     ```chmod +x gisApp.sh```
 4. Now run the shell script:
-    ```sudo ./gisApp.sh```
-<br />    
-5. Wait for the script to build the entire web app (This might take a while, please wait for the database setup and the dependencies to install correctly)
-<br />
+    ```sudo ./gisApp.sh``` <br />
+    
+5. Wait for the script to build the entire web app (This might take a while, please wait for the database setup and the dependencies to install correctly) <br />
     <ol>
     <li>The script will promp the user for some inputs - please enter the necessary details. </li><br />
     <li>PostgreSQL password - you can enter 'password' or any other 1 word you can rememeber</li><br />
@@ -36,7 +35,7 @@ Ubuntu OS
 ```Quit the server with CONTROL-C.```
 
 Open the link provided in the terminal to access the local webserver.
-(Note: Do not click ctrl-C to copy the link as this will exit the terminal and quit the process. Copy the link manually instead.)
+(Note: **Do not click ctrl-C** to copy the link as this will **exit the terminal** and quit the process. Copy the link manually instead or ctrl + click). <br />
 7. When the local webserver is launched, you will be asked to login with the admin user credentials you created in **step 5.5**. After logging in, you will enter the dashboard.
 
 
